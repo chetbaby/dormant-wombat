@@ -1,5 +1,4 @@
-import React from 'react'
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Header = styled.section`
   position: sticky;
@@ -10,3 +9,4 @@ const Header = styled.section`
 `;
 
 export default Header;
+

@@ -20,7 +20,6 @@ const create = () => {
   const axiosInstance = instantiateAxios(BASE_URL);
 
   const searchMovies = ({ query, currentPage }) => {
-    console.log("==eh", query);
     const params = {
       query,
       api_key: process.env.REACT_APP_MOVIEDB_API_KEY,

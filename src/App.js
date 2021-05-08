@@ -49,11 +49,11 @@ function App() {
 
   return (
     <div className="App">
-      <PageContainer>
         <Header>
           <Title>Movie Finder</Title>
           <Searchbar onChange={handleSearch} />
         </Header>
+      <PageContainer>
         {currentState === EMPTY && (
           <p style={{ textAlign: "center" }}>
             <b>Start typing to search for movies!</b>

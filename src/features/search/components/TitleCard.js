@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 
 import PosterThumbnail from "./PosterThumbnail";
 
-const StyledCard = styled.div`
+const StyledCard = styled.section`
   display: flex;
   align-items: flex-start;
   padding: 10px 0;
