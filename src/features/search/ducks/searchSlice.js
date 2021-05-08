@@ -16,17 +16,18 @@ const searchSlice = createSlice({
   initialState,
   reducers: {
     searchMovies(state) {
-      state.isLoading = true;
+      state.currentState = LOADING;
     },
     searchMoviesSuccess(state, action) {
-      state.isLoading = false;
-      state.results = [action.payload];
+      state.currentState = LOADED;
+      state.results = action.payload;
     },
     searchMoviesFail(state, action) {
-      state.isLoading = false;
+      state.currentState = ERROR;
       state.error = action.payload;
     },
     clearErrors(state) {
+      state.currentState = EMPTY;
       state.error = null;
     },
   },
