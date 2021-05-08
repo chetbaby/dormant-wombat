@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setQuery, searchMovies } from "./features/search/ducks/searchSlice";
@@ -43,24 +44,17 @@ function App() {
         {currentState === EMPTY && <div>No results.</div>}
         {currentState === LOADING && <div>Loading...</div>}
         {currentState === ERROR && <div>Error</div>}
-        {transformedResult?.map((movie) => (
-          <TitleCard key={movie.id} data={movie} />
-        ))}
-        {currentPage !== totalPages && (
-          <button
-            type="button"
-            onClick={() =>
-              dispatch(
-                searchMovies({
-                  query,
-                  currentPage: currentPage + 1,
-                })
-              )
-            }
-          >
-            load more
-          </button>
-        )}
+        <InfiniteScroll
+          dataLength={results?.length}
+          next={() =>
+            dispatch(searchMovies({ query, currentPage: currentPage + 1 }))
+          }
+          hasMore={currentPage !== totalPages}
+        >
+          {transformedResult?.map((movie) => (
+            <TitleCard key={movie.id} data={movie} />
+          ))}
+        </InfiniteScroll>
       </PageContainer>
     </div>
   );

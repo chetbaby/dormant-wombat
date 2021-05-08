@@ -12,23 +12,6 @@ import {
 
 const api = apiFactory.create();
 
-function* addResultsSaga(action) {
-  const { query, currentPage } = action.payload;
-  console.log("==addresu", currentPage);
-  let response;
-  try {
-    response = yield call(api.searchMovies, { query, currentPage });
-    const { results, total_pages } = response?.data;
-    yield put(addResultsSuccess({}));
-  } catch (error) {
-    yield put(addResultsFail("We encountered an error with your request."));
-  }
-}
-
-function* addResultsWatcher() {
-  yield takeLatest(addResults.type, addResultsSaga);
-}
-
 function* searchMoviesSaga(action) {
   const { query, currentPage } = action.payload;
   yield delay(500);
@@ -47,5 +30,5 @@ function* searchMoviesWatcher() {
 }
 
 export default function* searchSagas() {
-  yield all([searchMoviesWatcher(), addResultsWatcher()]);
+  yield all([searchMoviesWatcher()]);
 }
