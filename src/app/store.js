@@ -1,8 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import createSagaMiddleware from "redux-saga";
 
-export const store = configureStore({
+import searchReducer from "../features/search/ducks/searchSlice";
+import rootSaga from "./rootSaga";
+
+const sagaMiddleware = createSagaMiddleware();
+
+export default configureStore({
   reducer: {
-    counter: counterReducer,
+    search: searchReducer,
   },
+  middleware: [sagaMiddleware, ...getDefaultMiddleware({ thunk: false })],
 });
+
+sagaMiddleware.run(rootSaga);

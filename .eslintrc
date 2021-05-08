@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "eslint-config-chetbaby",
+  ],
+  "rules": {
+    "prettier/prettier": 0,
+    "no-param-reassign": 0,
+  },
+}
