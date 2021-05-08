@@ -13,6 +13,7 @@ import {
 } from "./features/search/ducks/searchSelectors";
 import { LOADING, EMPTY, ERROR } from "./features/search/ducks/searchConstants";
 import searchResultsTransformer from "./dataTransformers/searchResultsTransformer";
+import Header from "./features/search/components/Header";
 import Title from "./features/search/components/Title";
 import Searchbar from "./features/search/components/Searchbar";
 import TitleCard from "./features/search/components/TitleCard";
@@ -21,6 +22,15 @@ const PageContainer = styled.main`
   display: block;
   position: relative;
   margin 0 5vw;
+  max-width: 720px;
+
+  @media (min-width: 768px) {
+    margin: 0 10vw;
+  }
+
+  @media (min-width: 1024px) {
+    margin: 0 auto;
+  }
 `;
 
 function App() {
@@ -40,8 +50,10 @@ function App() {
   return (
     <div className="App">
       <PageContainer>
-        <Title>Movie Finder</Title>
-        <Searchbar onChange={handleSearch} />
+        <Header>
+          <Title>Movie Finder</Title>
+          <Searchbar onChange={handleSearch} />
+        </Header>
         {currentState === EMPTY && (
           <p style={{ textAlign: "center" }}>
             <b>Start typing to search for movies!</b>
@@ -60,7 +72,7 @@ function App() {
             )
           }
           endMessage={
-            <p style={{ textAlign: "center" }}>
+            <p style={{ textAlign: "center", fontSize: "24px" }}>
               <b>End of Results</b>
             </p>
           }

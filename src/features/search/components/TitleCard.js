@@ -9,10 +9,19 @@ const StyledCard = styled.div`
   align-items: flex-start;
   padding: 10px 0;
 
+  @media (min-width: 768px) {
+    padding: 15px 0;
+  }
+
   h2 {
     margin: 0;
     font-size: 20px;
     line-height: 20px;
+
+    @media (min-width: 768px) {
+      font-size: 24px;
+      line-height: 24px;
+    }
   }
 
   span {
@@ -21,6 +30,11 @@ const StyledCard = styled.div`
     font-size: 15px;
     font-style: italic;
     color: dimGray;
+
+    @media (min-width: 768px) {
+      margin-top: 10px;
+      font-size: 20px;
+    }
   }
 
   p {
@@ -33,11 +47,19 @@ const StyledCard = styled.div`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+
+    @media (min-width: 768px) {
+      font-size: 18px;
+    }
   }
 `;
 
 const CopyWrapper = styled.div`
   margin-left: 15px;
+
+  @media (min-width: 768px) {
+    margin-left: 25px;
+  }
 `;
 
 const TitleCard = ({ data }) => {

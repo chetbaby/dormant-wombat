@@ -14,6 +14,10 @@ const StyledThumbnail = styled.img.attrs((props) => ({
 }))`
   width: 125px;
   object-fit: contain;
+
+  @media (min-width: 768px) {
+    width: 150px;
+  }
 `;
 
 const PosterThumbnail = ({ url, title }) => {
