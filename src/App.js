@@ -10,6 +10,7 @@ import {
 import { LOADING, EMPTY } from "./features/search/ducks/stateConstants";
 import searchResultsTransformer from "./dataTransformers/searchResultsTransformer";
 import Title from "./features/search/components/Title";
+import TitleCard from "./features/search/components/TitleCard";
 
 const PageContainer = styled.main`
   display: block;
@@ -30,7 +31,9 @@ function App() {
         <input onChange={(e) => dispatch(searchMovies(e.target.value))} />
         {currentState === EMPTY && <div>No results.</div>}
         {currentState === LOADING && <div>Loading...</div>}
-        <pre>{JSON.stringify(transformedResult, null, 2)}</pre>
+        {transformedResult.map((movie) => (
+          <TitleCard key={movie.id} data={movie} />
+        ))}
       </PageContainer>
     </div>
   );
