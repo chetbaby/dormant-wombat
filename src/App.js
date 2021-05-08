@@ -14,6 +14,7 @@ import {
 import { LOADING, EMPTY, ERROR } from "./features/search/ducks/searchConstants";
 import searchResultsTransformer from "./dataTransformers/searchResultsTransformer";
 import Title from "./features/search/components/Title";
+import Searchbar from "./features/search/components/Searchbar";
 import TitleCard from "./features/search/components/TitleCard";
 
 const PageContainer = styled.main`
@@ -39,10 +40,13 @@ function App() {
   return (
     <div className="App">
       <PageContainer>
-        <Title>Movie Search</Title>
-        <input onChange={handleSearch} />
-        {currentState === EMPTY && <div>No results.</div>}
-        {currentState === LOADING && <div>Loading...</div>}
+        <Title>Movie Finder</Title>
+        <Searchbar onChange={handleSearch} />
+        {currentState === EMPTY && (
+          <p style={{ textAlign: "center" }}>
+            <b>Start typing to search for movies!</b>
+          </p>
+        )}
         {currentState === ERROR && <div>Error</div>}
         <InfiniteScroll
           dataLength={results?.length}
@@ -50,6 +54,16 @@ function App() {
             dispatch(searchMovies({ query, currentPage: currentPage + 1 }))
           }
           hasMore={currentPage !== totalPages}
+          loader={
+            currentState === LOADING && (
+              <h4 style={{ textAlign: "center" }}>Loading...</h4>
+            )
+          }
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>End of Results</b>
+            </p>
+          }
         >
           {transformedResult?.map((movie) => (
             <TitleCard key={movie.id} data={movie} />

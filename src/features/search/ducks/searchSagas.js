@@ -5,9 +5,6 @@ import {
   searchMovies,
   searchMoviesSuccess,
   searchMoviesFail,
-  addResults,
-  addResultsSuccess,
-  addResultsFail,
 } from "./searchSlice";
 
 const api = apiFactory.create();

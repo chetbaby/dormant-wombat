@@ -18,6 +18,7 @@ const searchSlice = createSlice({
     setQuery(state, action) {
       state.currentPage = 0;
       state.query = action.payload;
+      state.results = [];
     },
     searchMovies(state) {
       state.currentState = LOADING;
@@ -37,6 +38,9 @@ const searchSlice = createSlice({
       state.currentState = EMPTY;
       state.error = null;
     },
+    resetResults(state) {
+      state.results = [];
+    },
   },
 });
 
@@ -50,6 +54,7 @@ export const {
   addResults,
   addResultsSuccess,
   addResultsFail,
+  resetResults,
 } = searchSlice.actions;
 
 export default searchSlice.reducer;
