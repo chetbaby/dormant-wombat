@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { EMPTY, ERROR, LOADING, LOADED, LAST_PAGE } from "./stateConstants";
+import { EMPTY, ERROR, LOADING, LOADED, LAST_PAGE } from "./searchConstants";
 
 const initialState = {
   query: "",
