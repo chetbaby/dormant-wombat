@@ -5,18 +5,38 @@ import {
   searchMovies,
   searchMoviesSuccess,
   searchMoviesFail,
+  addResults,
+  addResultsSuccess,
+  addResultsFail,
 } from "./searchSlice";
 
 const api = apiFactory.create();
 
+function* addResultsSaga(action) {
+  const { query, currentPage } = action.payload;
+  console.log("==addresu", currentPage);
+  let response;
+  try {
+    response = yield call(api.searchMovies, { query, currentPage });
+    const { results, total_pages } = response?.data;
+    yield put(addResultsSuccess({}));
+  } catch (error) {
+    yield put(addResultsFail("We encountered an error with your request."));
+  }
+}
+
+function* addResultsWatcher() {
+  yield takeLatest(addResults.type, addResultsSaga);
+}
+
 function* searchMoviesSaga(action) {
-  const query = action.payload;
+  const { query, currentPage } = action.payload;
   yield delay(500);
   let response;
   try {
-    response = yield call(api.searchMovies, query);
-    const { results } = response?.data;
-    yield put(searchMoviesSuccess(results));
+    response = yield call(api.searchMovies, { query, currentPage });
+    const { results, total_pages } = response?.data;
+    yield put(searchMoviesSuccess({ results, totalPages: total_pages }));
   } catch (error) {
     yield put(searchMoviesFail("We encountered an error with your request."));
   }
@@ -27,5 +47,5 @@ function* searchMoviesWatcher() {
 }
 
 export default function* searchSagas() {
-  yield all([searchMoviesWatcher()]);
+  yield all([searchMoviesWatcher(), addResultsWatcher()]);
 }

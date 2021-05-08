@@ -1,11 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { format } from "date-fns";
+import ReactStars from "react-rating-stars-component";
 
-import { POSTER_BASE_URL } from "../../search/ducks/searchConstants";
 import PosterThumbnail from "./PosterThumbnail";
-
-const POSTER_SIZE = 200;
 
 const StyledCard = styled.div`
   display: flex;
@@ -45,17 +42,15 @@ const CopyWrapper = styled.div`
 
 const TitleCard = ({ data }) => {
   const { poster, title, year, blurb, rating } = data;
+
   return (
     <StyledCard>
-      <PosterThumbnail
-        url={`${POSTER_BASE_URL}w${POSTER_SIZE}/${poster}`}
-        alt={title}
-      />
+      <PosterThumbnail url={poster} alt={title} />
       <CopyWrapper>
         <h2>{title}</h2>
-        <span>{format(new Date(year), "y")}</span>
+        <span>{year}</span>
         <p>{blurb}</p>
-        <div>{rating}</div>
+        <ReactStars size={20} value={rating / 2} edit={false} />
       </CopyWrapper>
     </StyledCard>
   );
