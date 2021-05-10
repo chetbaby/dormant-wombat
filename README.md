@@ -2,22 +2,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+### The usual:
 
-### `yarn start`
+`yarn start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
+`yarn test`
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+`yarn build`
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -27,18 +24,42 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+*NOTE:* for this exercise I've included the `.env` file with the API key, but this would not usually be in the repo.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Stack
+- Create React App w/ Redux Toolkit
+- Styled Components
+- Axios
+- Redux Saga
+- React Infinite Scroll Component
+- React Rating Stars Component
+- Eslint/Prettier
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Challenges + Solutions
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Debouncing the request
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Since there's no submit button and the search is expected to return while typing. I decided to use `Redux Saga` to implement a `delay` while using the `takeLatest` function for the watcher. Sagas were already setup so this was easy to implement.
 
-## Learn More
+### Incomplete data
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The API returned some records without a `poster_path` and that led to broken image links. I found a suitable placeholder image and modified my `Image` component to default to the placeholder `url` in the event that there was no `poster_path`. Initially I also used `date-fns` to format the date, but this would occasionally return an `invalid date object` error. Since what was being returned was a simple string, I resorted to using string manipulation to display the year instead.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Paginated Requests
+
+I had some issues implementing the `infinite scroll` component, because my function wasn't delivering the right payload. I initially had a separate function for sending requests after the first one was sent. This overcommplicated things. I refactored my search movies function instead by separating out a `setQuery` function to handle the input separately. I then just used a `handleSearch` function declared in the `app` component to use them both in the `onChange`.
+
+## Known Issues
+- There is a bug that occurs when the user hits space in the input field and nothing else. The request is made with an empty query param and sends back an error. Should implement a minimum character length to gate requests.
+- The layout is a bit large on purpose for the sake of seeing the images better, but I would probably shrink this down in production.
+
+## Future Improvements
+
+- Include more tests and implement `propTypes` in each component.
+- User testing and bugfixing cycles.
+- Graceful error handling. Right now I just display `error` on the screen.
+- Focus the `input` field on mount.
+- Better layout design & desktop view.
+- Run an accessibility and lighthouse audit.
+- Pruning code/dirs/libs and refactoring components.
+- More features! Hover state for the image, details view, submit rating, animation effects, better loader...etc.
