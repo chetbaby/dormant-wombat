@@ -1,3 +1,7 @@
+**This repo has been hosted on Netlify and can be viewed here:**
+
+https://laughing-torvalds-5bcac1.netlify.app/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
